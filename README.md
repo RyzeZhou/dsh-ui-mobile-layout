@@ -65,15 +65,6 @@ profile 的 `package.json` 登记依赖与 bundle，最后重启该实例：
 #     "dsh-ui-mobile-layout"
 ```
 
-重启使插件生效：
-
-```powershell
-restart-5070.ps1   # 或你惯用的重启脚本/方式
-```
-
-> 也可以用 `dsh plugin --profile web add dsh-ui-mobile-layout` 风格命令安装（由你所选
-> DSH 版本的插件机制决定）。
-
 ### 交给 Agent 安装
 
 把下面的说明直接发给 Agent：
