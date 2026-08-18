@@ -19,6 +19,28 @@ untouched.
 If this helps you, feel free to hit **Star** at the top of the
 [repository](https://github.com/RyzeZhou/dsh-ui-mobile-layout).
 
+## Preview
+
+<table>
+  <tr>
+    <td><img src="docs/assets/01-main-conversation.png" alt="Mobile conversation page" width="270"></td>
+    <td><img src="docs/assets/02-settings-list.png" alt="Fullscreen settings list" width="270"></td>
+    <td><img src="docs/assets/03-settings-detail.png" alt="Item detail page" width="270"></td>
+  </tr>
+  <tr align="center">
+    <td>Conversation</td>
+    <td>Settings list</td>
+    <td>Item detail</td>
+  </tr>
+</table>
+
+The left drawer, sidebar and file manager panels also work on mobile:
+
+<p align="center">
+  <img src="docs/assets/04-sidebar-file-manager.png" alt="Sidebar file manager" width="270"><br>
+  Sidebar (file manager) works normally on mobile
+</p>
+
 ## Features
 
 - **Single-column layout** on phones: the nav rail becomes a left drawer (slides

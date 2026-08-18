@@ -14,6 +14,28 @@
 
 如果它帮到了你，欢迎在 [GitHub 仓库](https://github.com/RyzeZhou/dsh-ui-mobile-layout)右上角点一下 **Star**。
 
+## 效果预览
+
+<table>
+  <tr>
+    <td><img src="docs/assets/01-main-conversation.png" alt="手机主对话页" width="270"></td>
+    <td><img src="docs/assets/02-settings-list.png" alt="全屏设置列表" width="270"></td>
+    <td><img src="docs/assets/03-settings-detail.png" alt="条目详情页" width="270"></td>
+  </tr>
+  <tr align="center">
+    <td>主对话页</td>
+    <td>全屏设置列表</td>
+    <td>条目详情页</td>
+  </tr>
+</table>
+
+左侧抽屉、侧边栏与文件管理等面板在手机上同样可用：
+
+<p align="center">
+  <img src="docs/assets/04-sidebar-file-manager.png" alt="侧边栏资源管理器" width="270"><br>
+  侧边栏（资源管理器）在手机端正常可用
+</p>
+
 ## 能做什么
 
 - **手机单栏布局**：`<768px` 时导航栏收为左侧抽屉，对话区占满整屏，不用在三列间左右横跳；
