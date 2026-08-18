@@ -1,0 +1,34 @@
+{
+  "name": "dsh-ui-mobile-layout",
+  "version": "0.1.0",
+  "description": "DSH 移动端布局层：窄视口单栏布局 + 左侧抽屉 + 官方设置改造成手机原生两层导航（全屏条目列表→详情→返回），桌面不受影响。",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./mobile.css": "./mobile.css",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib",
+    "mobile.css",
+    "cordis.patch.yml",
+    "README.md",
+    "README.en.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RyzeZhou/dsh-ui-mobile-layout.git"
+  },
+  "license": "MIT"
+}

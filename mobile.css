@@ -1,0 +1,151 @@
+/* ============================================================
+   dsh-ui-mobile-layout — mobile stylesheet (final v18)
+   NOTE: this file mirrors the authoritative CSS embedded in
+   lib/client.js (the client half injects that inline CSS). Keep
+   this file in sync when editing mobile layout rules.
+
+   Design (final):
+     - Sidebar drawer MUST hide via `left`, NEVER `transform`:
+       any transform on the sidebar becomes the containing block
+       for its fixed descendants (the official fullscreen Settings
+       dialog), trapping it inside the drawer.
+     - Settings are presented on phones as a native two-layer nav:
+       root = our own fullscreen overlay (top bar + section list),
+       detail = the official dialog's LIVE content (we make the
+       overlay transparent & click-through).
+     - Desktop (>767px) is untouched.
+   ============================================================ */
+
+@media (max-width: 767px) {
+  /* 1) frame → single column. */
+  [data-mobile-layout] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 2) sidebar col (child 1) → left drawer, closed by default.
+        `left:-100%` never affects a fixed child's containing block
+        (unlike `transform`). Width follows content (280..420px). */
+  [data-mobile-layout] > *:nth-child(1) {
+    position: fixed;
+    inset-block: 0;
+    left: -100%;
+    z-index: 100;
+    width: auto;
+    min-width: 280px;
+    max-width: min(85vw, 420px);
+    transform: none !important;
+    transition: left 0.24s ease, box-shadow 0.24s ease;
+    background: var(--dsw-bg-color, #151515);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* expanded (collapsed attr absent) → slide in above the scrim. */
+  [data-mobile-layout]:not([data-sidebar-collapsed]) > *:nth-child(1) {
+    left: 0;
+  }
+
+  /* 3) details col (child 3) → hidden on phones. */
+  [data-mobile-layout] > *:nth-child(3) {
+    display: none;
+  }
+
+  /* 4) overlay layer stays beneath the drawer. */
+  [data-mobile-layout] > *:nth-child(4) {
+    z-index: 90;
+  }
+
+  /* ---- mobile Settings (final) ---- */
+  /* The official dialog is our DETAIL page: fullscreen, live content. */
+  [data-mobile-layout] [role="dialog"] {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 1000 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    border-radius: 0 !important;
+    overflow-y: auto;
+  }
+  [data-mobile-layout] [role="dialog"] nav { display: none !important; }
+  [data-mobile-layout] [role="dialog"] > :last-child {
+    display: flex !important;
+    flex-direction: column;
+    min-height: 0;
+    padding: calc(env(safe-area-inset-top, 0px) + 52px) 16px calc(env(safe-area-inset-bottom, 0px) + 16px) !important;
+    box-sizing: border-box;
+  }
+  /* hide official panel header/close — we own the top bar */
+  [data-mobile-layout] [role="dialog"] > :last-child > *:first-child { display: none; }
+  [data-mobile-layout] [data-mobile-dialog-mask] { display: none !important; }
+
+  /* ---- our root-screen overlay (the LIST) ---- */
+  [data-mobile-settings-overlay] {
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    z-index: 2000 !important;
+    display: flex;
+    flex-direction: column;
+    background: var(--dsw-alias-bg-layer-2, #151515);
+    overflow: hidden;
+  }
+  [data-mobile-settings-overlay][data-screen="detail"] {
+    background: transparent !important;
+    pointer-events: none !important;
+  }
+  [data-mobile-settings-overlay][data-screen="detail"] [data-mobile-topbar] {
+    pointer-events: auto;
+  }
+  [data-mobile-settings-overlay] [data-mobile-topbar] {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: calc(env(safe-area-inset-top, 0px) + 52px);
+    padding: env(safe-area-inset-top, 0px) 8px 0;
+    flex: none;
+    border-bottom: 1px solid var(--dsw-alias-border-l1, #2a2a2e);
+    background: var(--dsw-alias-bg-layer-2, #151515);
+    box-sizing: border-box;
+  }
+  [data-mobile-settings-overlay] [data-mobile-topbar] button {
+    width: 42px; height: 42px;
+    border: none; border-radius: 12px;
+    background: transparent;
+    color: var(--dsw-alias-label-primary, #fff);
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    margin: 0 2px;
+  }
+  [data-mobile-settings-overlay] [data-mobile-topbar] button:active {
+    background: var(--dsw-alias-interactive-bg-hover, #2a2a2e);
+  }
+  [data-mobile-settings-overlay] [data-mobile-topbar] [data-mobile-title] {
+    flex: 1; min-width: 0;
+    font-size: 17px; font-weight: 600; line-height: 22px;
+    color: var(--dsw-alias-label-primary, #fff);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-align: left; padding-left: 6px;
+  }
+  [data-mobile-settings-overlay] [data-mobile-list] {
+    flex: 1 1 0; min-height: 0;
+    overflow-y: auto;
+    padding: 8px 16px calc(env(safe-area-inset-bottom, 0px) + 20px);
+    box-sizing: border-box;
+  }
+  [data-mobile-settings-overlay] [data-mobile-list] button {
+    display: flex; align-items: center; gap: 14px;
+    width: 100%; min-height: 54px; margin-bottom: 8px; padding: 0 14px;
+    box-sizing: border-box;
+    border: none; border-radius: 14px;
+    background: var(--dsw-alias-bg-layer-2, #1c1c1f);
+    color: var(--dsw-alias-label-primary, #fff);
+    font-size: 16px; line-height: 22px; text-align: left;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  [data-mobile-settings-overlay][data-screen="detail"] [data-mobile-list] {
+    display: none !important;
+  }
+}

@@ -1,0 +1,9 @@
+# dsh-ui-mobile-layout — bundle registry patch
+
+# P1 mobile layout layer. Inserts the plugin row into the web profile roster.
+# Applied as a profile bundle layer (the dsh.bundle.patch manifest field).
+# It is a peer of every other client plugin — it only reflows the frame shell
+# in narrow viewports, it never replaces another plugin's slot occupant.
+- insert:
+    - id: dsh-ui-mobile-layout
+      name: 'dsh-ui-mobile-layout'
